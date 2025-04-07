@@ -18,9 +18,12 @@ async function fileToBase64(file) {
 
 // Gemini AI integration for car image processing
 export async function processCarImageWithAI(file) {
+
+  console.log("hello 1")
   try {
     // Check if API key is available
     if (!process.env.GEMINI_API_KEY) {
+      console.log("❌ No API key found");
       throw new Error("Gemini API key is not configured");
     }
 
@@ -74,9 +77,11 @@ export async function processCarImageWithAI(file) {
 
     // Get response from Gemini
     const result = await model.generateContent([imagePart, prompt]);
-    const response = await result.response;
+    const response = result.response;
     const text = response.text();
+    console.log(text)
     const cleanedText = text.replace(/```(?:json)?\n?/g, "").trim();
+    console.log(cleanedText)
 
     // Parse the JSON response
     try {

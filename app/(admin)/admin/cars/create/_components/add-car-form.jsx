@@ -157,9 +157,8 @@ export const AddCarForm = () => {
       reader.readAsDataURL(uploadedAiImage);
 
       toast.success("Successfully extracted car details", {
-        description: `Detected ${carDetails.year} ${carDetails.make} ${
-          carDetails.model
-        } with ${Math.round(carDetails.confidence * 100)}% confidence`,
+        description: `Detected ${carDetails.year} ${carDetails.make} ${carDetails.model
+          } with ${Math.round(carDetails.confidence * 100)}% confidence`,
       });
 
       // Switch to manual tab for the user to review and fill in missing details
@@ -531,9 +530,8 @@ export const AddCarForm = () => {
                     id="description"
                     {...register("description")}
                     placeholder="Enter detailed description of the car..."
-                    className={`min-h-32 ${
-                      errors.description ? "border-red-500" : ""
-                    }`}
+                    className={`min-h-32 ${errors.description ? "border-red-500" : ""
+                      }`}
                   />
                   {errors.description && (
                     <p className="text-xs text-red-500">
@@ -571,9 +569,8 @@ export const AddCarForm = () => {
                   <div className="mt-2">
                     <div
                       {...getMultiImageRootProps()}
-                      className={`border-2 border-dashed rounded-lg p-6 text-center cursor-pointer hover:bg-gray-50 transition ${
-                        imageError ? "border-red-500" : "border-gray-300"
-                      }`}
+                      className={`border-2 border-dashed rounded-lg p-6 text-center cursor-pointer hover:bg-gray-50 transition ${imageError ? "border-red-500" : "border-gray-300"
+                        }`}
                     >
                       <input {...getMultiImageInputProps()} />
                       <div className="flex flex-col items-center justify-center">
