@@ -49,6 +49,7 @@ export default function Chatbot() {
 
     return (
         <>
+            {/* Chat Icon */}
             <AnimatePresence>
                 {showChatIcon && (
                     <motion.div
@@ -57,6 +58,7 @@ export default function Chatbot() {
                         exit={{ opacity: 0, y: 100 }}
                         transition={{ duration: 0.2 }}
                         className="fixed bottom-4 right-4 z-50"
+                        onClick={tooglechat}
                     >
                         <Button ref={chaticonref} title="Chat" onClick={tooglechat} size="icon" className='rounded-full size-14 p-2 shadow-lg'>
                             {!isChatOpen ? (
@@ -68,6 +70,22 @@ export default function Chatbot() {
                     </motion.div>
                 )}
             </AnimatePresence>
+
+            {/* Black Overlay */}
+            <AnimatePresence>
+                {isChatOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"
+                        onClick={tooglechat}
+                    />
+                )}
+            </AnimatePresence>
+
+            {/* Chat Window */}
             <AnimatePresence>
                 {isChatOpen && (
                     <motion.div
