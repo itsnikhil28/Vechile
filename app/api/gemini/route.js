@@ -29,17 +29,12 @@ export async function POST(request) {
         content: language === 'hindi'? 'आप एक पुरुष सहायक हैं। कृपया हमेशा साधारण, बोलचाल वाली हिंदी में जवाब दें जिसमें ज़रूरत हो तो थोड़ा आसान English मिक्स कर सकते हैं। भाषा ऐसी होनी चाहिए जो आम इंसान आसानी से समझ सके।' : 'You are a male assistant. Always respond in English'
     }
 
-    const initialContent =
-        language === 'hindi'
-            ? initialMessages.content || 'नमस्ते! मैं आपकी मदद के लिए यहाँ हूँ।'
-            : initialMessages.content || 'Hello! I\'m here to help you.'
-
     const prompt = [
         languageInstruction,
         {
             id: generateid(),
             role: "user",
-            content: initialContent
+            content: initialMessages.content
         },
         ...filteredMessages.map(message => ({
             id: generateid(),
@@ -49,7 +44,7 @@ export async function POST(request) {
     ]
 
     const stream = await streamText({
-        model: google('gemini-1.5-pro-002'),
+        model: google('gemini-2.0-flash-lite-preview-02-05'),
         messages: prompt,
         temperature: 1
     })

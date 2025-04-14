@@ -75,7 +75,7 @@ export default function Chatbot() {
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.8 }}
                         transition={{ duration: 0.2 }}
-                        className="fixed bottom-20 right-4 z-50 w-[95%] md:w-[500px]"
+                        className="fixed bottom-20 right-4 z-50 w-[90%] md:w-[500px]"
                     >
                         <Card className="border-2">
                             <CardHeader className="flex flex-row justify-between items-center space-y-0 pb-3">
