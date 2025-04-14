@@ -31,8 +31,8 @@ export async function POST(request) {
 
     const initialContent =
         language === 'hindi'
-            ? initialMessages.content
-            : initialMessages.content
+            ? initialMessages.content || 'नमस्ते! मैं आपकी मदद के लिए यहाँ हूँ।'
+            : initialMessages.content || 'Hello! I\'m here to help you.'
 
     const prompt = [
         languageInstruction,

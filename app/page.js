@@ -15,7 +15,7 @@ import Image from "next/image";
 import { bodyTypes, carMakes, faqItems } from "@/lib/data"
 
 export default async function Home() {
-  // const featuredCars = await getFeaturedCars();
+  const featuredCars = await getFeaturedCars();
 
   return (
     <>
@@ -49,9 +49,9 @@ export default async function Home() {
               </Button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* {featuredCars.map((car) => (
+              {featuredCars.map((car) => (
                 <CarCard key={car.id} car={car} />
-              ))} */}
+              ))}
             </div>
           </div>
         </section>
