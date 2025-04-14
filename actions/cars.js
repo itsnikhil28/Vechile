@@ -19,7 +19,6 @@ async function fileToBase64(file) {
 // Gemini AI integration for car image processing
 export async function processCarImageWithAI(file) {
 
-  console.log("hello 1")
   try {
     // Check if API key is available
     if (!process.env.GEMINI_API_KEY) {
@@ -49,12 +48,12 @@ export async function processCarImageWithAI(file) {
       2. Model
       3. Year (approximately)
       4. Color
-      5. Body type (SUV, Sedan, Hatchback, etc.)
-      6. Mileage
-      7. Fuel type (your best guess)
+      5. Body type - choose only from the following options: SUV, Sedan, Hatchback, Convertible, Coupe, Wagon, Pickup
+      6. Mileage - (only a single number, no text or units). If the exact mileage isn't visible, estimate it based on the condition of the car or description.
+      7. Fuel type (your best guess) — choose only from the following options: Petrol, Diesel, Electric, Hybrid, Plug-in Hybrid
       8. Transmission type (your best guess)
-      9. Price (your best guess)
-      9. Short Description as to be added to a car listing
+      9. Price in Indian Rupees (your best guess, only a single number without any currency symbol or range)
+      10. Short Description as to be added to a car listing
 
       Format your response as a clean JSON object with these fields:
       {
@@ -76,12 +75,11 @@ export async function processCarImageWithAI(file) {
     `;
 
     // Get response from Gemini
-    const result = await model.generateContent([imagePart, prompt]);
+    const result = await model.generateContent([imagePart, prompt])
     const response = result.response;
-    const text = response.text();
-    console.log(text)
-    const cleanedText = text.replace(/```(?:json)?\n?/g, "").trim();
-    console.log(cleanedText)
+    const text = response.text()
+
+    const cleanedText = text.replace(/```(?:json)?\n?/g, "").trim()
 
     // Parse the JSON response
     try {
@@ -101,7 +99,7 @@ export async function processCarImageWithAI(file) {
         "description",
         "confidence",
       ];
-
+      
       const missingFields = requiredFields.filter(
         (field) => !(field in carDetails)
       );
@@ -284,10 +282,16 @@ export async function deleteCar(id) {
       };
     }
 
-    // Delete the car from the database
+    // Delete test drive bookings related to this car
+    await db.testDriveBooking.deleteMany({
+      where: { carId: id },
+    });
+
+    // Then delete the car
     await db.car.delete({
       where: { id },
     });
+
 
     // Delete the images from Supabase storage
     try {

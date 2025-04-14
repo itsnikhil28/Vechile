@@ -55,8 +55,8 @@ const carFormSchema = z.object({
     const year = parseInt(val);
     return !isNaN(year) && year >= 1900 && year <= new Date().getFullYear() + 1;
   }, "Valid year required"),
-  price: z.string().min(1, "Price is required"),
-  mileage: z.string().min(1, "Mileage is required"),
+  price: z.number().min(1, "Price is required"),
+  mileage: z.number().min(1, "Mileage is required"),
   color: z.string().min(1, "Color is required"),
   fuelType: z.string().min(1, "Fuel type is required"),
   transmission: z.string().min(1, "Transmission is required"),
@@ -91,8 +91,8 @@ export const AddCarForm = () => {
       make: "",
       model: "",
       year: "",
-      price: "",
-      mileage: "",
+      price: 0,
+      mileage: 0,
       color: "",
       fuelType: "",
       transmission: "",
@@ -135,7 +135,7 @@ export const AddCarForm = () => {
   // Handle successful AI processing
   useEffect(() => {
     if (processImageResult?.success) {
-      const carDetails = processImageResult.data;
+      const carDetails = processImageResult.data
 
       // Update form with AI results
       setValue("make", carDetails.make);
@@ -362,10 +362,12 @@ export const AddCarForm = () => {
 
                   {/* Price */}
                   <div className="space-y-2">
-                    <Label htmlFor="price">Price ($)</Label>
+                    <Label htmlFor="price">Price (₹)</Label>
                     <Input
+                      type="text"
+                      inputMode="numeric"
                       id="price"
-                      {...register("price")}
+                      {...register("price", { valueAsNumber: true })}
                       placeholder="e.g. 25000"
                       className={errors.price ? "border-red-500" : ""}
                     />
@@ -380,8 +382,10 @@ export const AddCarForm = () => {
                   <div className="space-y-2">
                     <Label htmlFor="mileage">Mileage</Label>
                     <Input
+                      type="text"
+                      inputMode="numeric"
                       id="mileage"
-                      {...register("mileage")}
+                      {...register("mileage", { valueAsNumber: true })}
                       placeholder="e.g. 15000"
                       className={errors.mileage ? "border-red-500" : ""}
                     />
