@@ -3,8 +3,8 @@
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { AnimatePresence } from 'framer-motion'
-import { ArrowDownCircleIcon, MessageCircleIcon, Send, SendIcon, Square, SquareIcon, X } from 'lucide-react'
-import React, { use, useEffect, useRef, useState } from 'react'
+import { ArrowDownCircleIcon, HeadsetIcon, SendIcon, SquareIcon, X } from 'lucide-react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card"
 import { ScrollArea } from "./ui/scroll-area"
 import { useChat } from "@ai-sdk/react"
@@ -62,7 +62,7 @@ export default function Chatbot() {
                     >
                         <Button ref={chaticonref} title="Chat" onClick={tooglechat} size="icon" className='rounded-full size-14 p-2 shadow-lg'>
                             {!isChatOpen ? (
-                                <MessageCircleIcon className="size-12" />
+                                <HeadsetIcon style={{ width: 30, height: 30 }} />
                             ) : (
                                 <ArrowDownCircleIcon />
                             )}
