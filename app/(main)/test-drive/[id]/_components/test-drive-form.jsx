@@ -39,6 +39,7 @@ import { cn } from "@/lib/utils";
 import { bookTestDrive } from "@/actions/test-drive";
 import { toast } from "sonner";
 import useFetch from "@/hooks/use-fetch";
+import { Input } from "@/components/ui/input";
 
 // Define Zod schema for form validation
 const testDriveSchema = z.object({
@@ -49,6 +50,11 @@ const testDriveSchema = z.object({
     required_error: "Please select a time slot",
   }),
   notes: z.string().optional(),
+  idProof: z
+    .string({
+      required_error: "Please provide an ID (DL, Aadhaar, or PAN)",
+    })
+    .min(6, "ID should be at least 6 characters long"),
 });
 
 export function TestDriveForm({ car, testDriveInfo }) {
@@ -71,6 +77,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
       date: undefined,
       timeSlot: undefined,
       notes: "",
+      idProof: "",
     },
   });
 
@@ -102,6 +109,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
           "h:mm a"
         )}`,
         notes: bookingResult?.data?.notes,
+        idProof: bookingResult?.data?.idProof,
       });
       setShowConfirmation(true);
 
@@ -206,6 +214,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
       startTime: selectedSlot.startTime,
       endTime: selectedSlot.endTime,
       notes: data.notes || "",
+      idProof: data.idProof,
     });
   };
 
@@ -371,8 +380,8 @@ export function TestDriveForm({ car, testDriveInfo }) {
                               !selectedDate
                                 ? "Please select a date first"
                                 : availableTimeSlots.length === 0
-                                ? "No available slots on this date"
-                                : "Select a time slot"
+                                  ? "No available slots on this date"
+                                  : "Select a time slot"
                             }
                           />
                         </SelectTrigger>
@@ -393,6 +402,30 @@ export function TestDriveForm({ car, testDriveInfo }) {
                   )}
                 />
               </div>
+
+              {/* ID Proof Entry */}
+              <div className="space-y-2">
+                <label className="block text-sm font-medium">
+                  Enter any one of the following ID : <br />
+                  <span className="pt-4">DL Number/ Aadhaar Number/ PAN Number</span>
+                </label>
+                <Controller
+                  name="idProof"
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      {...field}
+                      placeholder="E.g., DL1234567890123 / 1234-5678-9123 / ABCDE1234F"
+                    />
+                  )}
+                />
+                {errors.idProof && (
+                  <p className="text-sm font-medium text-red-500 mt-1">
+                    {errors.idProof.message}
+                  </p>
+                )}
+              </div>
+
 
               {/* Notes */}
               <div className="space-y-2">
@@ -484,6 +517,10 @@ export function TestDriveForm({ car, testDriveInfo }) {
                 <div className="flex justify-between">
                   <span className="font-medium">Dealership:</span>
                   <span>{dealership?.name || "Vechile Motors"}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="font-medium">ID Provided:</span>
+                  <span>{bookingDetails.idProof}</span>
                 </div>
               </div>
 

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { format, parseISO } from "date-fns";
-import { Calendar, Car, Clock, User, Loader2, ArrowRight } from "lucide-react";
+import { Calendar, Car, Clock, User, Loader2, ArrowRight, LucideIdCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -47,6 +47,7 @@ const getStatusBadge = (status) => {
 export function TestDriveCard({
   booking,
   onCancel,
+  idProof,
   showActions = true,
   isPast = false,
   isAdmin = false,
@@ -66,9 +67,8 @@ export function TestDriveCard({
   return (
     <>
       <Card
-        className={`overflow-hidden ${
-          isPast ? "opacity-80 hover:opacity-100 transition-opacity" : ""
-        }`}
+        className={`overflow-hidden ${isPast ? "opacity-80 hover:opacity-100 transition-opacity" : ""
+          }`}
       >
         <div className="flex flex-col sm:flex-row">
           {/* Car Image - Left */}
@@ -120,6 +120,13 @@ export function TestDriveCard({
                   {booking.user.name || booking.user.email}
                 </div>
               )}
+
+              {idProof && (
+                <div className="flex items-center text-gray-600">
+                  <LucideIdCard className="h-4 w-4 mr-2" />{idProof}
+                  <span className="text-red-600 ml-1"> (Please match this ID number with the user’s verification document)</span>
+                </div>
+              )}
             </div>
           </div>
 
@@ -150,20 +157,20 @@ export function TestDriveCard({
               </Button>
               {(booking.status === "PENDING" ||
                 booking.status === "CONFIRMED") && (
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  className="w-full"
-                  onClick={() => setCancelDialogOpen(true)}
-                  disabled={isCancelling}
-                >
-                  {isCancelling ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  ) : (
-                    "Cancel"
-                  )}
-                </Button>
-              )}
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    className="w-full"
+                    onClick={() => setCancelDialogOpen(true)}
+                    disabled={isCancelling}
+                  >
+                    {isCancelling ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      "Cancel"
+                    )}
+                  </Button>
+                )}
             </div>
           )}
         </div>

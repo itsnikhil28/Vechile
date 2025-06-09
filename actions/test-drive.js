@@ -14,6 +14,7 @@ export async function bookTestDrive({
   startTime,
   endTime,
   notes,
+  idProof,
 }) {
   try {
     // Authenticate user
@@ -59,6 +60,7 @@ export async function bookTestDrive({
         startTime,
         endTime,
         notes: notes || null,
+        idProof,
         status: "PENDING",
       },
     });
@@ -124,6 +126,7 @@ export async function getUserTestDrives() {
       endTime: booking.endTime,
       status: booking.status,
       notes: booking.notes,
+      idProof: booking.idProof,
       createdAt: booking.createdAt.toISOString(),
       updatedAt: booking.updatedAt.toISOString(),
     }));

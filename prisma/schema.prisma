@@ -102,6 +102,7 @@ model TestDriveBooking {
   endTime     String
   status      BookingStatus @default(PENDING)
   notes       String?
+  idProof     String
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   car         Car           @relation(fields: [carId], references: [id], onDelete: Cascade)

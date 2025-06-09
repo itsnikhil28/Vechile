@@ -192,6 +192,7 @@ export const TestDrivesList = () => {
                     isAdmin={true}
                     isCancelling={cancelling}
                     cancelError={cancelError}
+                    idProof={booking.idProof}
                     renderStatusSelector={() => (
                       <Select
                         value={booking.status}
