@@ -60,6 +60,8 @@ export function ReservationsList({ initialData }) {
               <TestDriveCard
                 key={booking.id}
                 booking={booking}
+                idProof={booking.idProof}
+                message="(Please take your ID Number with you to the test drive location.)"
                 onCancel={handleCancelBooking}
                 isCancelling={cancelling}
                 showActions

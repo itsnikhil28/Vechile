@@ -48,6 +48,7 @@ export function TestDriveCard({
   booking,
   onCancel,
   idProof,
+  message,
   showActions = true,
   isPast = false,
   isAdmin = false,
@@ -124,7 +125,7 @@ export function TestDriveCard({
               {idProof && (
                 <div className="flex items-center text-gray-600">
                   <LucideIdCard className="h-4 w-4 mr-2" />{idProof}
-                  <span className="text-red-600 ml-1"> (Please match this ID number with the user’s verification document)</span>
+                  <span className="text-red-600 ml-1"> {message && message || "(Please match this ID number with the user’s verification document)"}</span>
                 </div>
               )}
             </div>
